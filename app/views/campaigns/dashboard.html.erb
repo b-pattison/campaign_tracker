@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="link-button">
+    <%= link_to "Back to campaigns", campaigns_path %>
+  </div>
+
+  <h1><%= @campaign.name %> — Dashboard</h1>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Next Planned Session</h2>
+    </div>
+    <% if @next_planned_session %>
+      <div class="session-card">
+        <strong><%= @next_planned_session.title %></strong>
+        <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">
+          <%= @next_planned_session.scheduled_at&.strftime("%B %-d, %Y at %l:%M %P") %>
+        </p>
+      </div>
+    <% else %>
+      <div class="empty-state">
+        <p>No upcoming session yet.</p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Last 3 Played Sessions</h2>
+    </div>
+    <% if @last_played_sessions.any? %>
+      <% @last_played_sessions.each do |s| %>
+        <div class="session-card">
+          <strong><%= s.title %></strong>
+          <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">
+            Played <%= s.played_at&.strftime("%B %-d, %Y") %>
+          </p>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="empty-state">
+        <p>No played sessions yet.</p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Active PCs — Total XP</h2>
+    </div>
+    <% if @active_pcs_with_xp.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Character</th>
+            <th>Total XP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @active_pcs_with_xp.each do |pc| %>
+            <tr>
+              <td><strong><%= pc.name %></strong></td>
+              <td><%= number_with_delimiter(pc.attributes["total_xp"]) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="empty-state">
+        <p>No active PCs yet.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

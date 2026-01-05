@@ -1,0 +1,36 @@
+<div class="container">
+  <h1>Campaigns</h1>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Create New Campaign</h2>
+    </div>
+    <%= form_with model: @campaign, url: campaigns_path do |f| %>
+      <div>
+        <%= f.label :name %>
+        <%= f.text_field :name, required: true, placeholder: "Enter campaign name" %>
+      </div>
+
+      <%= f.submit "Create Campaign" %>
+    <% end %>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Your Campaigns</h2>
+    </div>
+    <% if @campaigns.any? %>
+      <ul>
+        <% @campaigns.each do |c| %>
+          <li>
+            <%= link_to c.name, dashboard_campaign_path(c) %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="empty-state">
+        <p>No campaigns yet. Create your first campaign above!</p>
+      </div>
+    <% end %>
+  </div>
+</div>
