@@ -16,7 +16,7 @@ class CharactersController < ApplicationController
         if character.save
             render json: character, status: :created
         else
-            render json: { errors: character.errors.full_messages }, status: :unprocessable_entity
+            render json: { errors: character.errors.full_messages }, status: :unprocessable_content
         end
     end
 
@@ -24,7 +24,7 @@ class CharactersController < ApplicationController
         if @character.update(character_params)
             render json: @character
         else
-            render json: { errors: @character.errors.full_messages }, status: :unprocessable_entity
+            render json: { errors: @character.errors.full_messages }, status: :unprocessable_content
         end
     end
 

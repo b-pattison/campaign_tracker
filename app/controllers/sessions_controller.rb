@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
         if session.save
             render json: session, status: :created
         else
-            render json: { error: session.errors.full_messages.to_sentence }, status: :unprocessable_entity
+            render json: { error: session.errors.full_messages.to_sentence }, status: :unprocessable_content
         end
     end
 
@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
         if @session.update(session_params)
             render json: @session
         else
-            render json: { error: @session.errors.full_messages.to_sentence }, status: :unprocessable_entity
+            render json: { error: @session.errors.full_messages.to_sentence }, status: :unprocessable_content
         end
     end
 
@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
 
         render json: result, status: :ok
     rescue Sessions::Finalize::Error => e
-        render json: { error: e.message }, status: :unprocessable_entity
+        render json: { error: e.message }, status: :unprocessable_content
     end
 
     private

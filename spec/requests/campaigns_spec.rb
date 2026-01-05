@@ -22,7 +22,7 @@ RSpec.describe "Campaigns", type: :request do
 
     it "renders errors for invalid campaign" do
       post campaigns_path, params: { campaign: { name: "" } }
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 

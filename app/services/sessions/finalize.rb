@@ -12,7 +12,7 @@ module Sessions
                 award_xp
                 @session.update!(status: "played", played_at: Time.current)
             end
-        @session
+            @session
         end
 
         private
@@ -43,9 +43,7 @@ module Sessions
             total = @session.total_xp
             raise Error, "Missing total_xp" if total.nil?
 
-            pcs_present = eligible_attendances.select {
-                |attendance| attendance.character.pc?
-            }
+            pcs_present = eligible_attendances.select { |a| a.character.pc? }
             return if pcs_present.empty?
 
             base, remainder = total.divmod(pcs_present.size)
@@ -54,7 +52,7 @@ module Sessions
             pcs_present.shuffle.each_with_index do |attendance, index|
                 bonus = index < remainder ? 1 : 0
                 xp = base + bonus
-                attendance.character.update!(xp: attendance.character.xp + xp)
+                attendance.character.increment!(:xp, xp)
                 attendance.update!(xp_earned: xp)
             end
         end

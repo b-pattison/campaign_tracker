@@ -11,7 +11,7 @@ class CampaignsController < ApplicationController
       redirect_to dashboard_campaign_path(@campaign), notice: "Campaign created."
     else
       @campaigns = Campaign.order(created_at: :desc)
-      render :index, status: :unprocessable_entity
+      render :index, status: :unprocessable_content
     end
   end
   def dashboard

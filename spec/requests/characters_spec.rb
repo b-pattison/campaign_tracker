@@ -56,7 +56,7 @@ RSpec.describe "Characters", type: :request do
 
             post "/characters", params: payload
             
-            expect(response).to have_http_status(:unprocessable_entity)
+            expect(response).to have_http_status(:unprocessable_content)
             expect(json["errors"]).to be_present
         end
     end
@@ -79,7 +79,7 @@ RSpec.describe "Characters", type: :request do
                 character: {level: 21}
             }
 
-            expect(response).to have_http_status(:unprocessable_entity)
+            expect(response).to have_http_status(:unprocessable_content)
             expect(json["errors"]).to be_present
         end
     end
